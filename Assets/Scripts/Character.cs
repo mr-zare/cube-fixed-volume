@@ -10,18 +10,23 @@ public class Character : MonoBehaviour
     private bool isTouching;
     private float touchableScreenWidth;
 
-    public float groundWidth;
-    public GameObject modelToScale;
+    [SerializeField]
+    private float groundWidth;
+    [SerializeField]
+    private GameObject modelToScale;
 
-    public float maxWidth;
+    [SerializeField]
+    private float maxWidth;
     private float area;
     private float witdh;
     private float height;
     private float startTouchHeight;
+    private float xTarget;
 
     private void Awake()
     {
-        touchControls = new TouchControls();
+        Application.targetFrameRate = 120;
+        touchControls = new TouchControls(); 
         touchableScreenWidth = Screen.width * 4/5;
 
         witdh = transform.position.y * 2;
@@ -43,6 +48,8 @@ public class Character : MonoBehaviour
     }
     private void StartTouch(InputAction.CallbackContext context)
     {
+        if(GameManager.instance.state != GameState.Play) { return; }
+
         isTouching = true;
         startTouchPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         startTouchHeight = height;
@@ -50,7 +57,6 @@ public class Character : MonoBehaviour
     private void EndTouch(InputAction.CallbackContext context)
     {
         isTouching = false;
-        startTouchPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
     }
     private void Update()
     {
@@ -62,7 +68,8 @@ public class Character : MonoBehaviour
     private void Touching()
     {
         SetScale();
-        SetPosition();
+        CalculatePosition();
+        SetPoeition();
     }
     private void SetScale()
     {
@@ -75,13 +82,17 @@ public class Character : MonoBehaviour
         witdh = area / height;
         modelToScale.transform.localScale = new Vector3(witdh, height, modelToScale.transform.localScale.z);
     }
-    private void SetPosition()
+    private void CalculatePosition()
     {
         Vector2 touchP = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         float xRatio = (touchP.x - (Screen.width / 2)) / (touchableScreenWidth / 2);
         xRatio = Mathf.Clamp(xRatio, -1, 1);
         float x = xRatio * groundWidth / 2;
-        x = Mathf.Clamp(x, -(groundWidth - witdh) / 2, (groundWidth - witdh) / 2);
+        xTarget = Mathf.Clamp(x, -(groundWidth - witdh) / 2, (groundWidth - witdh) / 2);
+    }
+    private void SetPoeition()
+    {
+        float x = Mathf.Lerp(transform.position.x, xTarget, 1 - Mathf.Pow((0.001f), Time.deltaTime));
         transform.position = new Vector3(x, height / 2, transform.position.z);
     }
 }

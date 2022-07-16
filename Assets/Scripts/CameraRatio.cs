@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraRatio : MonoBehaviour
 {
-    public float horizontalFOV;
+    [SerializeField]
+    private float horizontalFOV;
 
     void Start()
     {
