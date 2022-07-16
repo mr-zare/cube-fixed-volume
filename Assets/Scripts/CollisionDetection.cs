@@ -8,11 +8,11 @@ public class CollisionDetection : MonoBehaviour
     {
         if (GameManager.instance.state == GameState.Play)
         {
-            if (other.tag == "obstacles")
+            if (other.tag == "Obstacles")
             {
                 GameManager.instance.UpdateGameState(GameState.Lose);
             }
-            if (other.tag == "finishLine")
+            if (other.tag == "FinishLine")
             {
                 GameManager.instance.UpdateGameState(GameState.Win);
             }
