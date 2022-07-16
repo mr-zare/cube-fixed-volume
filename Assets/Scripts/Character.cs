@@ -74,7 +74,6 @@ public class Character : MonoBehaviour
         height = Mathf.Clamp(newheigh, area / maxWidth, maxWidth);
         witdh = area / height;
         modelToScale.transform.localScale = new Vector3(witdh, height, modelToScale.transform.localScale.z);
-        Debug.Log(witdh);
     }
     private void SetPosition()
     {
@@ -82,9 +81,7 @@ public class Character : MonoBehaviour
         float xRatio = (touchP.x - (Screen.width / 2)) / (touchableScreenWidth / 2);
         xRatio = Mathf.Clamp(xRatio, -1, 1);
         float x = xRatio * groundWidth / 2;
-        Debug.Log(x);
         x = Mathf.Clamp(x, -(groundWidth - witdh) / 2, (groundWidth - witdh) / 2);
-        Debug.Log(x);
         transform.position = new Vector3(x, height / 2, transform.position.z);
     }
 }
