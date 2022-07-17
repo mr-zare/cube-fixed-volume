@@ -27,19 +27,25 @@ public class MapMove : MonoBehaviour
 
     void Update()
     {
-        if (map.transform.position.z <vec11 && map.transform.position.z >vec12 && isdo1==false)
+        if (GameManager.instance.state == GameState.Play)
+        {
+            Move();
+        }
+    }
+    private void Move()
+    {
+        if (map.transform.position.z < vec11 && map.transform.position.z > vec12 && isdo1 == false)
         {
             isdo1 = true;
             speed += factor;
         }
-        if (map.transform.position.z <vec21 && map.transform.position.z >vec22 && isdo2==false)
+        if (map.transform.position.z < vec21 && map.transform.position.z > vec22 && isdo2 == false)
         {
             isdo2 = true;
             speed += factor;
         }
         transformPos = map.transform.position;
-        transformPos.z =(float) (transformPos.z - speed);
+        transformPos.z = (float)(transformPos.z - speed * Time.deltaTime);
         map.transform.position = transformPos;
-        
     }
 }
