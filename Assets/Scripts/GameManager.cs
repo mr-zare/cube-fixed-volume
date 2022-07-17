@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
             case GameState.Lose:
                 Debug.Log("lose");
                 break;
+            case GameState.Creator:
+                break;
             default:
                 break;
         }
@@ -52,5 +54,6 @@ public enum GameState
     Play,
     stop,
     Win,
-    Lose
+    Lose,
+    Creator
 }
