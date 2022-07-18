@@ -48,8 +48,6 @@ public class Character : MonoBehaviour
     }
     private void StartTouch(InputAction.CallbackContext context)
     {
-        if(GameManager.instance.state != GameState.Play) { return; }
-
         isTouching = true;
         startTouchPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         startTouchHeight = height;
@@ -62,7 +60,15 @@ public class Character : MonoBehaviour
     {
         if (isTouching)
         {
-            Touching();
+            GameState state = GameManager.instance.state;
+            if (state != GameState.Play && state != GameState.starting)
+            {
+                isTouching = false;
+            }
+            else
+            {
+                Touching();
+            }
         }
     }
     private void Touching()

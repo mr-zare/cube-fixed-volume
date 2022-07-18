@@ -20,15 +20,18 @@ public class GameManager : MonoBehaviour
     }
     public void Start()
     {
-        UpdateGameState(GameState.Play);
+        UpdateGameState(GameState.Menu);
     }
     public void UpdateGameState(GameState newState)
     {
         state = newState;
+        Debug.Log(newState);
 
         switch (newState)
         {
             case GameState.Menu:
+                break;
+            case GameState.starting:
                 break;
             case GameState.Play:
                 break;
@@ -37,7 +40,6 @@ public class GameManager : MonoBehaviour
             case GameState.Win:
                 break;
             case GameState.Lose:
-                Debug.Log("lose");
                 break;
             default:
                 break;
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
 public enum GameState
 {
     Menu,
+    starting,
     Play,
     stop,
     Win,
