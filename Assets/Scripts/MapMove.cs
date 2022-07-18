@@ -23,10 +23,28 @@ public class MapMove : MonoBehaviour
     [SerializeField] private GameObject winScene; 
     [SerializeField] private GameObject playScene;
 
+    private Vector3 startPosition;
+
     private GameManager _gameManager;
+    private void Awake()
+    {
+        GameManager.OnGameStateChange += onGameStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChange -= onGameStateChange;
+    }
+    void onGameStateChange(GameState state)
+    {
+        if (state == GameState.Menu)
+        {
+            reset();
+        }
+    }
     void Start()
     {
         _gameManager = GameManager.instance;
+        startPosition = map.transform.position;
     }
 
     void Update()
@@ -58,5 +76,9 @@ public class MapMove : MonoBehaviour
         transformPos = map.transform.position;
         transformPos.z = (float)(transformPos.z - speed * Time.deltaTime);
         map.transform.position = transformPos;
+    }
+    private void reset()
+    {
+        map.transform.position = startPosition;
     }
 }
