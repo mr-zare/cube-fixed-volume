@@ -7,19 +7,19 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Losescenecontroller : MonoBehaviour,IPopupController
+public class LoseSceneController : MonoBehaviour,IPopupController
 {
     [SerializeField] private Button restartBtn;
     [SerializeField] private Button menuBtn;
     private GameManager _gameManager;
     private UIEventManager _uiEventManager;
     [SerializeField] private GameObject looseScene;
-    [SerializeField] private GameObject playScene;
-    [SerializeField] private GameObject menuScene;
+    //[SerializeField] private GameObject playScene;
+    //[SerializeField] private GameObject menuScene;
 
     private void Awake()
     {
-        playScene.SetActive(false);
+        //playScene.SetActive(false);
         looseScene.SetActive(true);
     }
 
@@ -43,14 +43,14 @@ public class Losescenecontroller : MonoBehaviour,IPopupController
     private void OnOpenMenuScene()
     {
         _gameManager.UpdateGameState(GameState.Menu);
-        menuScene.SetActive(true);
+        //menuScene.SetActive(true);
         looseScene.SetActive(false);
     }
 
     private void OnOpenPlayScene()
     {
         _gameManager.UpdateGameState(GameState.Play);
-        playScene.SetActive(true);
+        //playScene.SetActive(true);
         looseScene.SetActive(false);
     }
 

@@ -7,15 +7,15 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Menucontroller : MonoBehaviour,IPopupController
+public class MenuController : MonoBehaviour,IPopupController
 {
     private GameManager _gameManager;
     
     [SerializeField] private Button startBtn;
     [SerializeField] private Button creatorBtn;
     private UIEventManager _uiEventManager;
-    [SerializeField] private GameObject creatorScene;
-    [SerializeField] private GameObject playScene;
+  //  [SerializeField] private GameObject creatorScene;
+   // [SerializeField] private GameObject playScene;
     [SerializeField] private GameObject menuScene;
 
     private void Awake()
@@ -44,13 +44,13 @@ public class Menucontroller : MonoBehaviour,IPopupController
     {
         _gameManager.UpdateGameState(GameState.Creator);
         menuScene.SetActive(false);
-        creatorScene.SetActive(true);
+     //   creatorScene.SetActive(true);
     }
 
     private void OnOpenStartGamePage()
     {
         _gameManager.UpdateGameState(GameState.Play);
-        playScene.SetActive(true);
+       // playScene.SetActive(true);
         menuScene.SetActive(false);
     }
     public void OnClose()

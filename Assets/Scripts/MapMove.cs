@@ -21,12 +21,12 @@ public class MapMove : MonoBehaviour
     [SerializeField] private bool isdo1;
     [SerializeField] private bool isdo2;
     [SerializeField] private GameObject winScene; 
-    [SerializeField] private GameObject playScene; 
+    [SerializeField] private GameObject playScene;
 
     private GameManager _gameManager;
     void Start()
     {
-        
+        _gameManager = GameManager.instance;
     }
 
     void Update()
