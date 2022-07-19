@@ -20,8 +20,8 @@ public class MapMove : MonoBehaviour
     [SerializeField] private int finall;
     [SerializeField] private bool isdo1;
     [SerializeField] private bool isdo2;
-    [SerializeField] private GameObject winScene; 
-    [SerializeField] private GameObject playScene;
+    //[SerializeField] private GameObject winScene; 
+    //[SerializeField] private GameObject playScene;
 
     private Vector3 startPosition;
 
@@ -49,13 +49,6 @@ public class MapMove : MonoBehaviour
 
     void Update()
     {
-        if (map.transform.position.z < finall )
-        {
-            speed = 0;
-            _gameManager.UpdateGameState(GameState.Win);
-            winScene.SetActive(true);
-            playScene.SetActive(false);
-        }
         if (GameManager.instance.state == GameState.Play)
         {
             Move();
