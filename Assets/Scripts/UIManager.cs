@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     private Sprite startImaeg;
     [SerializeField]
     private GameObject LosePanel;
+    [SerializeField]
+    private GameObject winPanel;
     private void Awake()
     {
         GameManager.OnGameStateChange += onGameStateChange;
@@ -31,6 +33,10 @@ public class UIManager : MonoBehaviour
         if(state == GameState.Lose)
         {
             LosePanel.SetActive(true);
+        }
+        if (state == GameState.Win)
+        {
+            winPanel.SetActive(true);
         }
         if (state == GameState.Menu)
         {
