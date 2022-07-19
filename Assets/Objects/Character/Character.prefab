@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6f0dd12b19c9e4faeac223f64aff06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundWidth: 10
+  groundWidth: 14
   modelToScale: {fileID: 7426551960782274890}
   maxWidth: 7
 --- !u!1001 &7426551961499883701
