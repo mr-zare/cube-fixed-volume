@@ -11,6 +11,7 @@ public class CollisionDetection : MonoBehaviour
             if (other.tag == "Obstacles")
             {
                 GameManager.instance.UpdateGameState(GameState.Lose);
+                Vibrator.Vibrate();
             }
             if (other.tag == "FinishLine")
             {

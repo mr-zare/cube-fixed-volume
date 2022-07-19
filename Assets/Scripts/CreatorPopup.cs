@@ -16,7 +16,6 @@ public class CreatorPopup : MonoBehaviour,IPopupController
 
     private void Awake()
     {
-        creatorScene.SetActive(true);
     }
 
     void Start()
@@ -33,10 +32,10 @@ public class CreatorPopup : MonoBehaviour,IPopupController
     {
         _uiEventManager.SetButtonListener(close,OnOpenMenu);
     }
-
-    private void OnOpenMenu()
+     
+    public void OnOpenMenu()
     {
-        _gameManager.UpdateGameState(GameState.Menu);
+        GameManager.instance.UpdateGameState(GameState.Menu);
         creatorScene.SetActive(false);
     }
 

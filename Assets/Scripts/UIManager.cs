@@ -6,8 +6,18 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject startButton;
+    [SerializeField]
     private Text countDown;
     private int count;
+    [SerializeField]
+    private Image pasueButtonImage;
+    [SerializeField]
+    private Sprite stopImage;
+    [SerializeField]
+    private Sprite startImaeg;
+    [SerializeField]
+    private GameObject LosePanel;
     private void Awake()
     {
         GameManager.OnGameStateChange += onGameStateChange;
@@ -20,7 +30,11 @@ public class UIManager : MonoBehaviour
     {
         if(state == GameState.Lose)
         {
-
+            LosePanel.SetActive(true);
+        }
+        if (state == GameState.Menu)
+        {
+            startButton.SetActive(true);
         }
     }
     public void StopButton()
@@ -28,10 +42,12 @@ public class UIManager : MonoBehaviour
         GameState state = GameManager.instance.state;
         if (state == GameState.Play)
         {
+            pasueButtonImage.sprite = startImaeg;
             GameManager.instance.UpdateGameState(GameState.stop);
         }
         else if (state == GameState.stop)
         {
+            pasueButtonImage.sprite = stopImage;
             GameManager.instance.UpdateGameState(GameState.Play);
         }
     }
@@ -39,6 +55,7 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.UpdateGameState(GameState.starting);
 
+        countDown.text = "3";
         count = 3;
         countDown.gameObject.SetActive(true);
         Invoke("UpdateCountDown", 1);
