@@ -14,7 +14,7 @@ public class MenuController : MonoBehaviour,IPopupController
     [SerializeField] private Button startBtn;
     [SerializeField] private Button creatorBtn;
     private UIEventManager _uiEventManager;
-  //  [SerializeField] private GameObject creatorScene;
+    [SerializeField] private GameObject creatorScene;
    // [SerializeField] private GameObject playScene;
     [SerializeField] private GameObject menuScene;
 
@@ -25,7 +25,6 @@ public class MenuController : MonoBehaviour,IPopupController
 
     void Start()
     {
-        
     }
  
     void Update()
@@ -37,20 +36,16 @@ public class MenuController : MonoBehaviour,IPopupController
     {
         _uiEventManager.SetButtonListener(startBtn,OnOpenStartGamePage);
         _uiEventManager.SetButtonListener(creatorBtn,OnOpenCreatorPopup);
-
     }
 
-    private void OnOpenCreatorPopup()
+    public void OnOpenCreatorPopup()
     {
-        _gameManager.UpdateGameState(GameState.Creator);
-        menuScene.SetActive(false);
-     //   creatorScene.SetActive(true);
+        GameManager.instance.UpdateGameState(GameState.Creator);
+        creatorScene.SetActive(true);
     }
 
-    private void OnOpenStartGamePage()
+    public void OnOpenStartGamePage()
     {
-        _gameManager.UpdateGameState(GameState.Play);
-       // playScene.SetActive(true);
         menuScene.SetActive(false);
     }
     public void OnClose()

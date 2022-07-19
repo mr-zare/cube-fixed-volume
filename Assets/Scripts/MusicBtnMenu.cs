@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class musicbtnmenu : MonoBehaviour, IPopupController
+public class MusicBtnMenu : MonoBehaviour, IPopupController
 {
     private GameManager _gameManager;
     [SerializeField] private Button musicBtn;
