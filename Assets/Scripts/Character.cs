@@ -14,6 +14,10 @@ public class Character : MonoBehaviour
     private float groundWidth;
     [SerializeField]
     private GameObject modelToScale;
+    [SerializeField]
+    private float verticalSensetivity = 1f;
+
+    private int health = 3;
 
     [SerializeField]
     private float maxWidth;
@@ -22,6 +26,8 @@ public class Character : MonoBehaviour
     private float height;
     private float startTouchHeight;
     private float xTarget;
+    [SerializeField]
+    private float slideFactor = 0.001f;
 
     private void Awake()
     {
@@ -36,10 +42,27 @@ public class Character : MonoBehaviour
     private void OnEnable()
     {
         touchControls.Enable();
+        GameManager.OnGameStateChange += OnGameStateChange;
     }
     private void OnDisable()
     {
         touchControls.Disable();
+        GameManager.OnGameStateChange -= OnGameStateChange;
+    }
+    private void OnGameStateChange(GameState state)
+    {
+        if(state == GameState.Menu)
+        {
+            SetUp();
+        }
+    }
+    private void SetUp()
+    {
+        health = 0;
+        witdh = Mathf.Sqrt(area);
+        height = Mathf.Sqrt(area);
+        transform.position = new Vector3(0, height/2, transform.position.z);
+        modelToScale.transform.localScale = new Vector3(witdh, height, modelToScale.transform.localScale.z);
     }
     private void Start()
     {
@@ -48,6 +71,11 @@ public class Character : MonoBehaviour
     }
     private void StartTouch(InputAction.CallbackContext context)
     {
+        if(touchControls.Touch.TouchPosition.ReadValue<Vector2>().y > Screen.height - (Screen.width / 5))
+        {
+            return;
+        }
+        
         isTouching = true;
         startTouchPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         startTouchHeight = height;
@@ -80,9 +108,9 @@ public class Character : MonoBehaviour
     private void SetScale()
     {
         Vector2 touchP = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
-        float deltaYRation = (touchP.y - startTouchPosition.y) / (touchableScreenWidth);
-        deltaYRation = Mathf.Clamp(deltaYRation, -1, 1);
-        float deltaHeight = deltaYRation * maxWidth;
+        float deltaYRatio = (touchP.y - startTouchPosition.y) / (touchableScreenWidth / verticalSensetivity);
+        deltaYRatio = Mathf.Clamp(deltaYRatio, -1, 1);
+        float deltaHeight = deltaYRatio * maxWidth;
         float newheigh = deltaHeight + startTouchHeight;
         height = Mathf.Clamp(newheigh, area / maxWidth, maxWidth);
         witdh = area / height;
@@ -98,7 +126,15 @@ public class Character : MonoBehaviour
     }
     private void SetPoeition()
     {
-        float x = Mathf.Lerp(transform.position.x, xTarget, 1 - Mathf.Pow((0.001f), Time.deltaTime));
+        float x = Mathf.Lerp(transform.position.x, xTarget, 1 - Mathf.Pow(slideFactor, Time.deltaTime));
         transform.position = new Vector3(x, height / 2, transform.position.z);
+    }
+    public void LoseHealth()
+    {
+        health -= 1;
+        if(health == 0)
+        {
+            GameManager.instance.UpdateGameState(GameState.Lose);
+        }
     }
 }
