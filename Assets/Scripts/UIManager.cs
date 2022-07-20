@@ -22,10 +22,16 @@ public class UIManager : MonoBehaviour
     private GameObject winPanel;
     [SerializeField]
     private GameObject[] hearts;
+    [SerializeField]
+    private Image[] SoundButtonIcon;
+    [SerializeField]
+    private Sprite[] SoundIconSprites;
     private void Awake()
     {
         GameManager.OnGameStateChange += onGameStateChange;
         GameManager.OnHeartLost += OnHeartLost;
+
+        SoundButton();
     }
     private void OnDisable()
     {
@@ -98,5 +104,19 @@ public class UIManager : MonoBehaviour
         }
 
         countDown.text = count.ToString();
+    }
+    public void SoundButton()
+    {
+        foreach (Image item in SoundButtonIcon)
+        {
+            if (AudioManager.MusicSetting)
+            {
+                item.sprite = SoundIconSprites[0];
+            }
+            else
+            {
+                item.sprite = SoundIconSprites[1];
+            }
+        }
     }
 }
