@@ -28,7 +28,9 @@ public class Character : MonoBehaviour
     private float xTarget;
     [SerializeField]
     private float slideFactor = 0.001f;
-
+    [SerializeField]
+    private float hitColldown = 1f;
+    private float hitTimer = 0;
     private void Awake()
     {
         Application.targetFrameRate = 120;
@@ -43,11 +45,13 @@ public class Character : MonoBehaviour
     {
         touchControls.Enable();
         GameManager.OnGameStateChange += OnGameStateChange;
+        GameManager.OnCollision += OnCollision;
     }
     private void OnDisable()
     {
         touchControls.Disable();
         GameManager.OnGameStateChange -= OnGameStateChange;
+        GameManager.OnCollision -= OnCollision;
     }
     private void OnGameStateChange(GameState state)
     {
@@ -58,7 +62,7 @@ public class Character : MonoBehaviour
     }
     private void SetUp()
     {
-        health = 0;
+        health = 3;
         witdh = Mathf.Sqrt(area);
         height = Mathf.Sqrt(area);
         transform.position = new Vector3(0, height/2, transform.position.z);
@@ -132,9 +136,19 @@ public class Character : MonoBehaviour
     public void LoseHealth()
     {
         health -= 1;
+        GameManager.instance.LoseHeart(health);
         if(health == 0)
         {
             GameManager.instance.UpdateGameState(GameState.Lose);
         }
+    }
+    private void OnCollision()
+    {
+        if (Time.time - hitTimer > hitColldown)
+        {
+            LoseHealth();
+            GetComponent<Animator>().SetTrigger("Collide");
+        }
+        hitTimer = Time.time;
     }
 }

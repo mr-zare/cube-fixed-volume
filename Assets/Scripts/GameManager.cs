@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameState state;
 
     public static event Action<GameState> OnGameStateChange;
+    public static event Action OnCollision;
+    public static event Action<int> OnHeartLost;
     public void Awake()
     {
         if (instance == null)
@@ -48,6 +50,14 @@ public class GameManager : MonoBehaviour
         }
 
         OnGameStateChange?.Invoke(newState);
+    }
+    public void Collide()
+    {
+        OnCollision?.Invoke();
+    }
+    public void LoseHeart(int hearts)
+    {
+        OnHeartLost?.Invoke(hearts);
     }
 }
 public enum GameState

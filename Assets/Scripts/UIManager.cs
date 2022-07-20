@@ -20,13 +20,17 @@ public class UIManager : MonoBehaviour
     private GameObject LosePanel;
     [SerializeField]
     private GameObject winPanel;
+    [SerializeField]
+    private GameObject[] hearts;
     private void Awake()
     {
         GameManager.OnGameStateChange += onGameStateChange;
+        GameManager.OnHeartLost += OnHeartLost;
     }
     private void OnDisable()
     {
         GameManager.OnGameStateChange -= onGameStateChange;
+        GameManager.OnHeartLost -= OnHeartLost;
     }
     void onGameStateChange(GameState state)
     {
@@ -41,7 +45,15 @@ public class UIManager : MonoBehaviour
         if (state == GameState.Menu)
         {
             startButton.SetActive(true);
+            foreach (GameObject item in hearts)
+            {
+                item.SetActive(true);
+            }
         }
+    }
+    private void OnHeartLost(int heartsCount)
+    {
+        hearts[heartsCount].SetActive(false);
     }
     public void StopButton()
     {
