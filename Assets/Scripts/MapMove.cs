@@ -10,7 +10,8 @@ public class MapMove : MonoBehaviour
 {
     [SerializeField] private Camera characterCamera;
     [SerializeField] private Vector3 transformPos;
-    [SerializeField] private double factor;
+    [SerializeField] private double factor; 
+    [SerializeField] private double tutorialFactor;
     [SerializeField] private GameObject map;
     [SerializeField] private double speed;
     [SerializeField] private int vec11;
@@ -20,6 +21,7 @@ public class MapMove : MonoBehaviour
     [SerializeField] private int finall;
     [SerializeField] private bool isdo1;
     [SerializeField] private bool isdo2;
+    [SerializeField] private bool isdo3; 
     //[SerializeField] private GameObject winScene; 
     //[SerializeField] private GameObject playScene;
 
@@ -69,6 +71,20 @@ public class MapMove : MonoBehaviour
         transformPos = map.transform.position;
         transformPos.z = (float)(transformPos.z - speed * Time.deltaTime);
         map.transform.position = transformPos;
+    }
+
+    private void SpeedTutorial()
+    {
+        if (isdo3 == false)
+        {
+            isdo3 = true;
+            speed *= tutorialFactor;
+        }
+        else
+        {
+            isdo3 = false;
+            speed /= tutorialFactor;
+        }
     }
     private void reset()
     {
