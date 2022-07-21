@@ -30,8 +30,6 @@ public class UIManager : MonoBehaviour
     {
         GameManager.OnGameStateChange += onGameStateChange;
         GameManager.OnHeartLost += OnHeartLost;
-
-        SoundButton();
     }
     private void OnDisable()
     {
@@ -56,6 +54,10 @@ public class UIManager : MonoBehaviour
                 item.SetActive(true);
             }
         }
+    }
+    private void Start()
+    {
+        SoundButton();
     }
     private void OnHeartLost(int heartsCount)
     {
