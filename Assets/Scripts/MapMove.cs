@@ -8,6 +8,8 @@ using UnityEngine.Serialization;
 
 public class MapMove : MonoBehaviour
 {
+    public static MapMove instance;
+
     [SerializeField] private Camera characterCamera;
     [SerializeField] private Vector3 transformPos;
     [SerializeField] private double factor; 
@@ -30,6 +32,7 @@ public class MapMove : MonoBehaviour
     private GameManager _gameManager;
     private void Awake()
     {
+        instance = this;
         GameManager.OnGameStateChange += onGameStateChange;
     }
     private void OnDisable()
@@ -73,7 +76,7 @@ public class MapMove : MonoBehaviour
         map.transform.position = transformPos;
     }
 
-    private void SpeedTutorial()
+    public void SpeedTutorial()
     {
         if (isdo3 == false)
         {

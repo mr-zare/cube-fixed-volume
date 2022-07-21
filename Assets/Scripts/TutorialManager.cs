@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    private bool ShwoTutorial;
+    public static bool ShwoTutorial;
     [SerializeField]
     private GameObject tutorialPage;
     [SerializeField]
@@ -17,7 +17,6 @@ public class TutorialManager : MonoBehaviour
         }
 
         ShwoTutorial = PlayerPrefs.GetInt("Tutorial") == 0;
-        PlayerPrefs.SetInt("Tutorial", 1);
     }
     private void OnEnable()
     {
@@ -31,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     {
         if(state == GameState.Play)
         {
+            PlayerPrefs.SetInt("Tutorial", 1);
             Invoke("HideFirstTutorial", tutorialTime);
         }
         if (state == GameState.Win)
