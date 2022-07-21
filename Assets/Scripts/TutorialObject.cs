@@ -10,6 +10,10 @@ public class TutorialObject : MonoBehaviour
     private float time;
     private void OnTriggerEnter(Collider other)
     {
+        if (!TutorialManager.ShwoTutorial)
+        {
+            return;
+        }
         if(other.tag == "Player")
         {
             Debug.Log("tutorial");
