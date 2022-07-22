@@ -95,7 +95,7 @@ public class Character : MonoBehaviour
         if (isTouching)
         {
             GameState state = GameManager.instance.state;
-            if (state != GameState.Play && state != GameState.starting)
+            if (state != GameState.Play && state != GameState.starting && state != GameState.StartPage)
             {
                 isTouching = false;
             }

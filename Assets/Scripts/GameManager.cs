@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Menu:
                 break;
+            case GameState.StartPage:
+                break;
             case GameState.starting:
                 break;
             case GameState.Play:
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
 public enum GameState
 {
     Menu,
+    StartPage,
     starting,
     Play,
     stop,
