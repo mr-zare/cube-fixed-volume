@@ -47,6 +47,7 @@ public class MenuController : MonoBehaviour,IPopupController
     public void OnOpenStartGamePage()
     {
         menuScene.SetActive(false);
+        GameManager.instance.UpdateGameState(GameState.StartPage);
     }
     public void OnClose()
     {

@@ -17,7 +17,9 @@ public class Character : MonoBehaviour
     [SerializeField]
     private float verticalSensetivity = 1f;
 
-    private int health = 3;
+    [SerializeField]
+    private int Maxhealth = 4;
+    private int health;
 
     [SerializeField]
     private float maxWidth;
@@ -62,7 +64,7 @@ public class Character : MonoBehaviour
     }
     private void SetUp()
     {
-        health = 3;
+        health = Maxhealth;
         witdh = Mathf.Sqrt(area);
         height = Mathf.Sqrt(area);
         transform.position = new Vector3(0, height/2, transform.position.z);
@@ -93,7 +95,7 @@ public class Character : MonoBehaviour
         if (isTouching)
         {
             GameState state = GameManager.instance.state;
-            if (state != GameState.Play && state != GameState.starting)
+            if (state != GameState.Play && state != GameState.starting && state != GameState.StartPage)
             {
                 isTouching = false;
             }
